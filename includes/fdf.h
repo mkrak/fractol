@@ -14,9 +14,12 @@
 # define FDF_H
 # define HORI 600
 # define VERTI 600
+# define MOTION_NOTIFY 6
+# define PTR_MOTION_MASK (1L<<6)
 
 # include "mlx.h"
 # include <stdio.h>
+# include <math.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
@@ -33,11 +36,14 @@ typedef struct		s_coef
 	char		*data;
 	int			sl;
 
+	int 		av;
 	int			imax;
 	int			imx;
 	int			imy;
 	int			c;
 	int 		col;
+	int 		jul;
+	int 		stop;
 	long double tmp;
 	long double	x1;
 	long double	y1;
@@ -46,6 +52,8 @@ typedef struct		s_coef
 	long double	ci;
 	long double	zr;
 	long double	zi;
+	long double paramx;
+	long double paramy;
 }					t_coef;
 
 void				ft_line(t_coef *s, int x_a, int y_a, int x_b, int y_b);
@@ -62,11 +70,16 @@ void				put_pixel(t_coef *scoef, int x, int y, int color);
 
 void				color(int i, t_coef *e);
 void				mandelbrot(t_coef *e, int x, int y);
-void				mandelbrot_basic(t_coef *e);
+void				ft_fractal(t_coef *e);
 void				mandelbrot_init(t_coef *e);
 int					ft_mousehook(int key, int x, int y, t_coef *param);
 void		        ft_zoom(t_coef *e, int x, int y);
 void				ft_dezoom(t_coef *e, int x, int y);
-
-
+int 				stock_av(char *av);
+void				burningship(t_coef *e, int x, int y);
+void				julia_init(t_coef *e);
+void				def_mand_burn(t_coef *e, int x, int y);
+void				def_jul(t_coef *e, int x, int y);
+void				julia(t_coef *e, int x, int y);
+int 			 	fluide(int x, int y, t_coef *f);
 #endif

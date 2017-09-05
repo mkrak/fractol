@@ -29,39 +29,7 @@ void				new_image(t_coef *scoef)
 }
 
 
-int					ft_keyhook(int key, t_coef *e)
-{
-	if (key == 53)
-		exit(EXIT_SUCCESS);
-	else if (key == 69)
-	{
-		e->zoom *= 1.2;
-		e->imx *= 1.2;
-		e->imy *= 1.2;
-	}
-	else if (key == 124)
-		e->imx -= 20;
-	else if (key == 123)
-		e->imx += 20;
-	else if (key == 125)
-		e->imy -= 20;
-	else if (key == 126)
-		e->imy += 20;
-	else if (key == 8)
-		e->col -= 1;
-	else if (key == 9)
-		e->col += 1;
-//	else if (key != 53)
-//		printf("key = %d\n", key);
-	else if (key == 15)
-		mandelbrot_init(e);
-	else
-		return (0);
-	mlx_destroy_image(e->mlx, e->img);
-	new_image(e);
-	mandelbrot_basic(e);
-	return (0);
-}
+
 
 int					ft_mousehook(int key, int x, int y, t_coef *e)
 {
@@ -73,7 +41,7 @@ int					ft_mousehook(int key, int x, int y, t_coef *e)
 		return (0);
 	mlx_destroy_image(e->mlx, e->img);
 	new_image(e);
-	mandelbrot_basic(e);
+	ft_fractal(e);
 	return (0);
 }
 
@@ -89,3 +57,24 @@ void				put_pixel(t_coef *scoef, int x, int y, int color)
 	scoef->data[++i] = (color >> 8) & 0xff + scoef->col;
 	scoef->data[++i] = (color >> 16) + scoef->col;
 }
+
+void	color(int i, t_coef *e)
+{
+	int r;
+	int g;
+	int b;
+
+	if (i == e->imax)
+		e->c = 0x00000000;
+	else
+	{
+		r = (i * 5) * 2;
+		g = (255 - (i * 10)) * 2;
+		b = (255 - (i * 2)) * 2;
+		e->c = (r << 16) + (g << 8) + b;
+	}
+}
+
+
+
+

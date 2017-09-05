@@ -1,4 +1,4 @@
-NAME		=	fdf
+NAME		=	fractol
 SHEL		=	/bin/bash
 
 CC			=	gcc
