@@ -12,46 +12,44 @@
 
 #include "../includes/fdf.h"
 
-void				init_struct(t_coef *scoef)
+void	mandelbrot_init(t_coef *e)
 {
-	scoef->mlx = mlx_init();
-	scoef->win = mlx_new_window(scoef->mlx, HORI, VERTI, "mlx 42");
+	e->x1 = -2.1;
+	e->y1 = -1.2;
+	e->zoom = 100;
+	e->imax = 100;
+	e->imx = -50;
+	e->imy = -150;
+	ft_fractal(e);
 }
 
-void				new_image(t_coef *scoef)
+void	julia_init(t_coef *e)
 {
-	int		bpp;
-	int		endian;
-
-	scoef->img = mlx_new_image(scoef->mlx, HORI, VERTI);
-	scoef->data = mlx_get_data_addr(scoef->img, &bpp, &scoef->sl, &endian);
+	e->x1 = -1;
+	e->y1 = -1.2;
+	e->zoom = 100;
+	e->imax = 100;
+	e->imx = -50;
+	e->imy = -150;
+	e->paramx = VERTI / 2;
+	e->paramy = HORI / 2;
+	e->jul = 1;
+	e->stop = 0;
+	ft_fractal(e);
 }
 
-void				put_pixel(t_coef *scoef, int x, int y, int color)
+void	def_mand_burn(t_coef *e, int x, int y)
 {
-	int	i;
-
-	if (x >= HORI || x < 0 || y >= VERTI || y < 0)
-		return ;
-	i = x * 4 + y * scoef->sl;
-	scoef->data[i] = (color & 0xff) + scoef->col;
-	scoef->data[++i] = ((color >> 8) & 0xff) + scoef->col;
-	scoef->data[++i] = (color >> 16) + scoef->col;
+	e->cr = x / e->zoom + e->x1;
+	e->ci = y / e->zoom + e->y1;
+	e->zr = 0;
+	e->zi = 0;
 }
 
-void				color(int i, t_coef *e)
+void	def_jul(t_coef *e, int x, int y)
 {
-	int r;
-	int g;
-	int b;
-
-	if (i == e->imax)
-		e->c = 0x00000000;
-	else
-	{
-		r = (i * 5) * 2;
-		g = (255 - (i * 10)) * 2;
-		b = (255 - (i * 2)) * 2;
-		e->c = (r << 16) + (g << 8) + b;
-	}
+	e->cr = 0.285;
+	e->ci = 0.01;
+	e->zr = x / e->zoom + e->x1;
+	e->zi = y / e->zoom + e->y1;
 }
