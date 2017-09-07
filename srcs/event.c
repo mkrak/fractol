@@ -85,7 +85,7 @@ int			ft_keyhook(int key, t_coef *e)
 			e->stop = 1;
 	}
 	else if (key == 114)
-		mandelbrot_init(e);
+		init_fract(e);
 	else
 		return (0);
 	mlx_destroy_image(e->mlx, e->img);

@@ -28,10 +28,7 @@ int		main(int ac, char **av)
 	mlx_hook(scoef->win, 2, 3, ft_keyhook, scoef);
 	mlx_hook(scoef->win, MOTION_NOTIFY, PTR_MOTION_MASK, fluide,  scoef);
 	mlx_mouse_hook(scoef->win, ft_mousehook, scoef);
-	if (scoef->av == 1 || scoef->av == 2)
-		mandelbrot_init(scoef);
-	else
-		julia_init(scoef);
+	init_fract(scoef);
 	mlx_loop(scoef->mlx);
 	free(scoef);
 	return (0);

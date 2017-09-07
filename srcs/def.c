@@ -12,27 +12,14 @@
 
 #include "../includes/fdf.h"
 
-void	mandelbrot_init(t_coef *e)
+void	init_fract(t_coef *e)
 {
-	e->x1 = -2.1;
-	e->y1 = -1.2;
 	e->zoom = 100;
 	e->imax = 100;
-	e->imx = -50;
-	e->imy = -150;
-	ft_fractal(e);
-}
-
-void	julia_init(t_coef *e)
-{
-	e->x1 = -1;
-	e->y1 = -1.2;
-	e->zoom = 100;
-	e->imax = 100;
-	e->imx = -50;
-	e->imy = -150;
-	e->paramx = VERTI / 2;
-	e->paramy = HORI / 2;
+	e->imx = -200;
+	e->imy = -250;
+	e->paramx = 300;
+	e->paramy = 300;
 	e->jul = 1;
 	e->stop = 0;
 	ft_fractal(e);
@@ -40,8 +27,8 @@ void	julia_init(t_coef *e)
 
 void	def_mand_burn(t_coef *e, int x, int y)
 {
-	e->cr = x / e->zoom + e->x1;
-	e->ci = y / e->zoom + e->y1;
+	e->cr = x / e->zoom;
+	e->ci = y / e->zoom;
 	e->zr = 0;
 	e->zi = 0;
 }
@@ -50,6 +37,6 @@ void	def_jul(t_coef *e, int x, int y)
 {
 	e->cr = 0.285;
 	e->ci = 0.01;
-	e->zr = x / e->zoom + e->x1;
-	e->zi = y / e->zoom + e->y1;
+	e->zr = x / e->zoom;
+	e->zi = y / e->zoom;
 }
