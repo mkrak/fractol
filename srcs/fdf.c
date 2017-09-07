@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2017/09/01 16:00:19 by mkrakows         ###   ########.fr       */
+/*   Updated: 2017/09/07 17:14:07 by mkrakows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 int		main(int ac, char **av)
 {
 	t_coef	*scoef;
-	
-	if (ac != 2 || ((ft_strcmp(av[1], "mandelbrot") != 0) && (ft_strcmp(av[1], "burningship") != 0) && (ft_strcmp(av[1], "julia") != 0)))
+
+	if (ac != 2 || ((ft_strcmp(av[1], "mandelbrot") != 0) &&
+	(ft_strcmp(av[1], "burningship") != 0) && (ft_strcmp(av[1], "julia") != 0)))
 	{
 		ft_putendl("Usage : ../fractol [mandelbrot/burningship/julia]");
 		return (-1);
@@ -26,21 +27,22 @@ int		main(int ac, char **av)
 	init_struct(scoef);
 	new_image(scoef);
 	mlx_hook(scoef->win, 2, 3, ft_keyhook, scoef);
-	mlx_hook(scoef->win, MOTION_NOTIFY, PTR_MOTION_MASK, fluide,  scoef);
+	mlx_hook(scoef->win, MOTION_NOTIFY, PTR_MOTION_MASK, fluide, scoef);
 	mlx_mouse_hook(scoef->win, ft_mousehook, scoef);
 	init_fract(scoef);
 	mlx_loop(scoef->mlx);
+	mlx_destroy_image(scoef->mlx, scoef->img);
 	free(scoef);
 	return (0);
 }
 
 int		stock_av(char *av)
 {
-	if (ft_strcmp(av, "mandelbrot") == 0) 
+	if (ft_strcmp(av, "mandelbrot") == 0)
 		return (1);
 	else if (ft_strcmp(av, "burningship") == 0)
 		return (2);
-	else 
+	else
 		return (3);
 }
 
@@ -63,6 +65,10 @@ void	ft_fractal(t_coef *e)
 		}
 	}
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+	mlx_string_put(e->mlx, e->win, 10, 10, 0xFFFFFF,
+			"Menu  :  Press M");
+	if (e->m == 1)
+		menu(e);
 }
 
 void	magie(t_coef *e, int x, int y)
@@ -70,17 +76,18 @@ void	magie(t_coef *e, int x, int y)
 	int i;
 
 	i = -1;
-	while (++i< e->imax && e->zr * e->zr + e->zi * e->zi < 4)
+	while (++i < e->imax && e->zr * e->zr + e->zi * e->zi < 4)
 	{
 		e->tmp = e->zr;
 		if (e->av == 3)
 		{
-			e->zr = e->zr * e->zr - e->zi * e->zi - 0.8 + (0.6 / (e->paramx / VERTI));
+			e->zr = e->zr * e->zr - e->zi * e->zi - 0.8 +
+			(0.6 / (e->paramx / VERTI));
 			e->zi = 2 * e->zi * e->tmp + 0.27015 / (e->paramy / VERTI);
 		}
 		else
 		{
-				e->zr = e->zr * e->zr - e->zi * e->zi + e->cr;
+			e->zr = e->zr * e->zr - e->zi * e->zi + e->cr;
 			if (e->av == 1)
 				e->zi = 2 * e->zi * e->tmp + e->ci;
 			else
@@ -90,3 +97,5 @@ void	magie(t_coef *e, int x, int y)
 	color(i, e);
 	put_pixel(e, x - e->imx, y - e->imy, e->c);
 }
+
+

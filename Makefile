@@ -15,8 +15,8 @@ OBJS_DIR	=	objs/
 OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))
 OBJS		=	$(addprefix $(OBJS_DIR), $(OBJS_LIST))
 HEADERS		=	-I./libft -I./includes
-#LIBS		=	-framework OpenGl -framework AppKit -lmlx -L./libft -lft
-LIBS		=	-lmlx -lXext -lX11  -L./libft -lft
+LIBS		=	-framework OpenGl -framework AppKit -lmlx -L./libft -lft
+#LIBS		=	-lmlx -lXext -lX11  -L./libft -lft
 
 
 .PHONY : all clean

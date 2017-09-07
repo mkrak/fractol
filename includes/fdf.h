@@ -35,15 +35,18 @@ typedef struct		s_coef
 	void		*img;
 	char		*data;
 	int			sl;
-
-	int 		av;
+	int			av;
 	int			imax;
 	int			imx;
 	int			imy;
 	int			c;
-	int 		col;
-	int 		jul;
-	int 		stop;
+	int			col;
+	int 		r;
+	int 		g;
+	int 		b;
+	int 		t;
+	int 		m;
+	int			stop;
 	long double tmp;
 	long double	zoom;
 	long double	cr;
@@ -63,10 +66,11 @@ void				magie(t_coef *e, int x, int y);
 void				ft_fractal(t_coef *e);
 void				init_fract(t_coef *e);
 int					ft_mousehook(int key, int x, int y, t_coef *param);
-void		        ft_zoom(t_coef *e, int x, int y);
+void				ft_zoom(t_coef *e, int x, int y);
 void				ft_dezoom(t_coef *e, int x, int y);
-int 				stock_av(char *av);
+int					stock_av(char *av);
 void				def_mand_burn(t_coef *e, int x, int y);
 void				def_jul(t_coef *e, int x, int y);
-int 			 	fluide(int x, int y, t_coef *f);
+int					fluide(int x, int y, t_coef *f);
+void				menu(t_coef *axes);
 #endif
