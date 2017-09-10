@@ -27,17 +27,27 @@ void				new_image(t_coef *scoef)
 	scoef->data = mlx_get_data_addr(scoef->img, &bpp, &scoef->sl, &endian);
 }
 
-void				put_pixel(t_coef *scoef, int x, int y, int color)
+void				put_pixel(t_coef *s, int x, int y, int color)
 {
 	int	i;
 
 	if (x >= HORI || x < 0 || y >= VERTI || y < 0)
 		return ;
-	i = x * 4 + y * scoef->sl;
-	scoef->data[i] = (color & 0xff) + scoef->col;
-	scoef->data[++i] = ((color >> 8) & 0xff) + scoef->col;
-	scoef->data[++i] = (color >> 16) + scoef->col;
-	scoef->data[++i] = (color >> 24) + scoef->t;
+	i = x * 4 + y * s->sl;
+	if (s->av == 4)
+	{
+		s->data[i] = (color & 0xff) + s->paramx;
+		s->data[++i] = ((color >> 8) & 0xff) + s->paramx + s->paramy;
+		s->data[++i] = (color >> 16) + s->paramy;
+		s->data[++i] = (color >> 24) + s->t;
+	}
+	else
+	{
+		s->data[i] = (color & 0xff) + s->col;
+		s->data[++i] = ((color >> 8) & 0xff) + s->col;
+		s->data[++i] = (color >> 16) + s->col;
+		s->data[++i] = (color >> 24) + s->t;
+	}
 }
 
 void				color(int i, t_coef *e)
@@ -50,31 +60,31 @@ void				color(int i, t_coef *e)
 		e->c = 0x00000000;
 	else
 	{
-		r = (i * 10) * 2 + e->r;
-		g = (i * 5) * 2 + e->g;
-		b = (i * 1) * 2 + e->b;
+		r = (255 - (i * 5)) * 2 + e->r;
+		g = (255 - (i * 10)) * 2 + e->g;
+		b = (255 - (i * 2)) * 2 + e->b;
 		e->c = (r << 16) + (g << 8) + b;
 	}
 }
 
-void	menu(t_coef *m)
+void				menu(t_coef *m)
 {
-	mlx_string_put(m->mlx, m->win, 10, 30, 0xFFFFFF,
-			"[1/2/3] : Choix Mandelbrot/Burningship/julia");
-	mlx_string_put(m->mlx, m->win, 10, 50, 0xFFFFFF,
+	mlx_string_put(m->mlx, m->win, 10, 30, 0x000000,
+			"[0/1/2/3/4/5/6/7/8/9] : Choix Fractale");
+	mlx_string_put(m->mlx, m->win, 10, 50, 0x000000,
 			"[r/g/b/c/v] : rouge/vert/bleu/color+/color-");
-	mlx_string_put(m->mlx, m->win, 10, 90, 0xFFFFFF,
+	mlx_string_put(m->mlx, m->win, 10, 90, 0x000000,
 			"[fleche] : Deplacement");
-	mlx_string_put(m->mlx, m->win, 10, 70, 0xFFFFFF,
+	mlx_string_put(m->mlx, m->win, 10, 70, 0x000000,
 			"[click/molette] : Zoom avant, Zoom arriere");
-	mlx_string_put(m->mlx, m->win, 10, 110, 0xFFFFFF,
-			"[t] : Transparence :");
-	mlx_string_put(m->mlx, m->win, 220, 110, 0xFFFFFF,
-			ft_itoa(m->t/10));
-	mlx_string_put(m->mlx, m->win, 10, 150, 0xFFFFFF,
+	mlx_string_put(m->mlx, m->win, 10, 110, 0x000000,
+			"[t] : WTF ");
+	mlx_string_put(m->mlx, m->win, 220, 110, 0x000000,
+			ft_itoa(m->t / 10));
+	mlx_string_put(m->mlx, m->win, 10, 150, 0x000000,
 			"[p] : Pause");
-	mlx_string_put(m->mlx, m->win, 10, 130, 0xFFFFFF,
+	mlx_string_put(m->mlx, m->win, 10, 130, 0x000000,
 			"[+/-] : Iteration :");
-	mlx_string_put(m->mlx, m->win, 220, 130, 0xFFFFFF,
+	mlx_string_put(m->mlx, m->win, 220, 130, 0x000000,
 			ft_itoa(m->imax));
 }

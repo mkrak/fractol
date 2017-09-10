@@ -12,7 +12,7 @@
 
 #include "../includes/fdf.h"
 
-void	init_fract(t_coef *e)
+void				init_fract(t_coef *e)
 {
 	e->zoom = 100;
 	e->imax = 50;
@@ -26,10 +26,13 @@ void	init_fract(t_coef *e)
 	e->g = 0;
 	e->b = 0;
 	e->t = 0;
+	e->d = 0;
+	if (e->av == 7)
+		e->r = 40;
 	ft_fractal(e);
 }
 
-void	def_mand_burn(t_coef *e, int x, int y)
+void				def_mand_burn(t_coef *e, int x, int y)
 {
 	e->cr = x / e->zoom;
 	e->ci = y / e->zoom;
@@ -37,10 +40,8 @@ void	def_mand_burn(t_coef *e, int x, int y)
 	e->zi = 0;
 }
 
-void	def_jul(t_coef *e, int x, int y)
+void				def_jul(t_coef *e, int x, int y)
 {
-	e->cr = 0.285;
-	e->ci = 0.01;
 	e->zr = x / e->zoom;
 	e->zi = y / e->zoom;
 }

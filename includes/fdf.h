@@ -41,12 +41,13 @@ typedef struct		s_coef
 	int			imy;
 	int			c;
 	int			col;
-	int 		r;
-	int 		g;
-	int 		b;
-	int 		t;
-	int 		m;
+	int			r;
+	int			g;
+	int			b;
+	int			t;
+	int			m;
 	int			stop;
+	long double d;
 	long double tmp;
 	long double	zoom;
 	long double	cr;
@@ -60,6 +61,10 @@ typedef struct		s_coef
 void				new_image(t_coef *scoef);
 void				init_struct(t_coef *scoef);
 int					ft_keyhook(int key, t_coef *param);
+void				ft_keyhook1(int key, t_coef *e);
+void				ft_keyhook2(int key, t_coef *e);
+void				ft_keyhook3 (int key, t_coef *e);
+void				ft_keyhook4(int key, t_coef *e);
 void				put_pixel(t_coef *scoef, int x, int y, int color);
 void				color(int i, t_coef *e);
 void				magie(t_coef *e, int x, int y);
@@ -73,4 +78,6 @@ void				def_mand_burn(t_coef *e, int x, int y);
 void				def_jul(t_coef *e, int x, int y);
 int					fluide(int x, int y, t_coef *f);
 void				menu(t_coef *axes);
+void				magie_bonus(t_coef *e);
+void				magie_suite(t_coef *e);
 #endif

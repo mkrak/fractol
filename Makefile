@@ -8,6 +8,7 @@ LIBFT_DIR	=	libft/
 SRCS_DIR	=	srcs/
 SRCS_LIST	=	fdf.c \
 				event.c \
+				key.c \
 				def.c \
 				init_fdf.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
